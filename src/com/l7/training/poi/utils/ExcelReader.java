@@ -35,25 +35,26 @@ class ExcelReader {
                 Cell cell = cellIterator.next();
                 int column = cell.getColumnIndex();
                 switch (column) {
+                    //jyothish
                     case 0:
-                        if(cell.getStringCellValue()!=null) {
+                        if (cell.getStringCellValue() != null) {
                             book.setTitle(cell.getStringCellValue());
                             break;
-                        }else{
+                        } else {
                             throw new NullCellValueException("No Values in the cell");
                         }
                     case 1:
-                        if(cell.getStringCellValue()!=null) {
+                        if (cell.getStringCellValue() != null) {
                             book.setAuthor(cell.getStringCellValue());
                             break;
-                        }else{
+                        } else {
                             throw new NullCellValueException("No Values in the cell");
                         }
                     case 2:
-                        if(cell.getStringCellValue()!=null) {
+                        if (cell.getStringCellValue() != null) {
                             book.setPrice(cell.getNumericCellValue());
                             break;
-                        }else{
+                        } else {
                             throw new NullCellValueException("No Values in the cell");
                         }
                 }
@@ -68,7 +69,7 @@ class ExcelReader {
 
     private Workbook getWorkBook(FileInputStream fileInputStream, String filePath) throws IOException {
 
-        Workbook workbook = null;
+        Workbook workbook;
         if (filePath.endsWith("xls")) {
             workbook = new HSSFWorkbook(fileInputStream);
         } else if (filePath.endsWith("xlsx")) {
