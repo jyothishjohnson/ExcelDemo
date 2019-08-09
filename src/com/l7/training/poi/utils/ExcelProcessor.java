@@ -1,5 +1,6 @@
 package com.l7.training.poi.utils;
 
+import com.l7.training.poi.comparators.TitleComparator;
 import com.l7.training.poi.exception.NullCellValueException;
 import com.l7.training.poi.pojo.Book;
 
@@ -7,6 +8,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -22,7 +24,7 @@ public class ExcelProcessor {
                 List<Book> bookListRead = new ArrayList<>();
                 try {
                     bookListRead = reader.readBooksFromExcel(filePathRead);
-
+                    bookListRead.sort(new TitleComparator());
                 }catch (NullCellValueException ne){
                     System.out.println(ne.getMessage());
                 }
@@ -37,7 +39,7 @@ public class ExcelProcessor {
                 }
                 break;
             case 2:
-                ArrayList<Book> bookList = null;
+                ArrayList<Book> bookList;
                 try {
                     String filePath = "input.txt";
                     bookList = getBooksFromFile(filePath);
@@ -50,11 +52,11 @@ public class ExcelProcessor {
 
         }
 
-    static ArrayList<Book> getBooksFromFile (String filePath) throws FileNotFoundException {
+    private static ArrayList<Book> getBooksFromFile(String filePath) throws FileNotFoundException {
         ArrayList<Book> bookList = new ArrayList<>();
         File f = new File(filePath);
         Scanner sc = new Scanner(f);
-        Book book = null;
+        Book book;
         while (sc.hasNextLine()) {
             book = new Book();
             String bookString = sc.nextLine();
